@@ -49,7 +49,7 @@ INFO:__main__:volume: {
 * Power on functionality (this can be done via WOL) (should this even be part of this API?).
 
 ### Concurrency
-* Multiple instances of this class with conflict with one-another.
+* Multiple instances of this class will conflict with one-another.
 * Not thread-safe.
 * This API really *should* be asyncio in 2020, but asyncio is not yet part of the paho mqtt library (see [445](https://github.com/eclipse/paho.mqtt.python/issues/455)).
 
