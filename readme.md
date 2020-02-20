@@ -61,3 +61,6 @@ INFO:__main__:volume: {
 
 ### Security
 * The self-signed certificates from the TV are completely bypassed.
+
+## Requirements
+Python 3.6, 3.7, and 3.8 are supported.
