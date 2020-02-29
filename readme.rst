@@ -1,12 +1,27 @@
 Python API for Hisense Televisions
 ##################################
 
-|Black|
+|Black| |PyPi Version|
 
-Work-in-progress based off of [mqtt-hisensetv](https://github.com/Krazy998/mqtt-hisensetv).
+A work-in-progress python API for Hisense televisions based off of `mqtt-hisensetv`_.
 
-Demo
-****
+Installation
+************
+
+Linux
+=====
+.. code:: bash
+
+    sudo -H python3.8 -m pip install hisensetv
+
+Windows
+=======
+.. code:: bash
+
+    py -3.8 -m pip install hisensetv
+
+Usage
+*****
 ::
 
     hisensetv --help                 
@@ -27,21 +42,21 @@ Demo
       -v, --verbose         Logging verbosity.
 
 One Time Setup
-**************
+==============
 ::
 
     hisensetv 10.0.0.128 --authorize   
     Please enter the 4-digit code: 7815
 
 Keypresses
-**********
+==========
 ::
 
     hisensetv 10.0.0.28 --key up
     [2020-02-29 13:48:52,064] [INFO    ] sending keypress: up
 
 Gets
-****
+====
 ::
 
     hisensetv 10.0.0.28 --get volume
@@ -57,7 +72,7 @@ Concurrency
 ***********
 * Multiple instances of this class will conflict with one-another.
 * Not thread-safe.
-* This API really *should* be asyncio in 2020, but asyncio is not yet part of the paho mqtt library (see [445](https://github.com/eclipse/paho.mqtt.python/issues/455)).
+* This API really *should* be asyncio in 2020, but asyncio is not yet part of the paho mqtt library (see `445`_).
 
 Reliability
 ***********
@@ -75,4 +90,7 @@ Python 3.6, 3.7, and 3.8 are supported.
 
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
-
+.. |PyPi Version| image:: https://img.shields.io/pypi/v/hisensetv
+    :target: https://pypi.org/project/hisensetv/
+.. _mqtt-hisensetv: https://github.com/Krazy998/mqtt-hisensetv
+.. _445: https://github.com/eclipse/paho.mqtt.python/issues/445
