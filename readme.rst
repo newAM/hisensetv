@@ -72,7 +72,7 @@ Concurrency
 ***********
 * Multiple instances of this class will conflict with one-another.
 * Not thread-safe.
-* This API really *should* be asyncio in 2020, but asyncio is not yet part of the paho mqtt library (see `445`_).
+* This API really *should* be asyncio in 2020, but asyncio is not yet part of the paho mqtt library (see `455`_).
 
 Reliability
 ***********
@@ -84,13 +84,9 @@ Security
 ********
 * The self-signed certificates from the TV are completely bypassed.
 
-Requirements
-************
-Python 3.6, 3.7, and 3.8 are supported.
-
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 .. |PyPi Version| image:: https://img.shields.io/pypi/v/hisensetv
     :target: https://pypi.org/project/hisensetv/
 .. _mqtt-hisensetv: https://github.com/Krazy998/mqtt-hisensetv
-.. _445: https://github.com/eclipse/paho.mqtt.python/issues/445
+.. _455: https://github.com/eclipse/paho.mqtt.python/issues/455
