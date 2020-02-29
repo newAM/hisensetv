@@ -3,14 +3,14 @@ from setuptools import setup
 
 this_dir = os.path.abspath(os.path.dirname(__file__))
 
-with open(os.path.join(this_dir, "readme.rst"), "r") as f:
+with open(os.path.join(this_dir, "README.rst"), "r") as f:
     long_description = f.read()
 
 setup(
     name="hisensetv",
     description="MQTT interface to Hisense televisions.",
     long_description=long_description,
-    version="0.0.3",
+    version="0.0.4",
     author="Alex M.",
     author_email="7845120+newAM@users.noreply.github.com",
     url="https://github.com/newAM/hisensetv",
