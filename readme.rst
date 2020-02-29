@@ -1,0 +1,78 @@
+Python API for Hisense Televisions
+##################################
+
+|Black|
+
+Work-in-progress based off of [mqtt-hisensetv](https://github.com/Krazy998/mqtt-hisensetv).
+
+Demo
+****
+::
+
+    hisensetv --help                 
+    usage: hisensetv.py [-h] [--authorize] [--get {sources,volume}] [--key {back,down,exit,left,menu,power,right,up}] [-v] hostname
+
+    Hisense TV control.
+
+    positional arguments:
+      hostname              Hostname or IP for the TV.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --authorize           Authorize this API to access the TV.
+      --get {sources,volume}
+                            Gets a value from the TV.
+      --key {back,down,exit,left,menu,power,right,up}
+                            Sends a keypress to the TV.
+      -v, --verbose         Logging verbosity.
+
+One Time Setup
+**************
+::
+
+    hisensetv 10.0.0.128 --authorize   
+    Please enter the 4-digit code: 7815
+
+Keypresses
+**********
+::
+
+    hisensetv 10.0.0.28 --key up
+    [2020-02-29 13:48:52,064] [INFO    ] sending keypress: up
+
+Gets
+****
+::
+
+    hisensetv 10.0.0.28 --get volume
+    [2020-02-29 13:49:00,800] [INFO    ] volume: {
+        "volume_type": 0,
+        "volume_value": 1
+    }
+
+Limitations
+***********
+
+Concurrency
+***********
+* Multiple instances of this class will conflict with one-another.
+* Not thread-safe.
+* This API really *should* be asyncio in 2020, but asyncio is not yet part of the paho mqtt library (see [445](https://github.com/eclipse/paho.mqtt.python/issues/455)).
+
+Reliability
+***********
+* Tested only with a single TV.
+* The concurrency issues contribute to reliability issues in general.
+* Unit tests do not exist yet.
+
+Security
+********
+* The self-signed certificates from the TV are completely bypassed.
+
+Requirements
+************
+Python 3.6, 3.7, and 3.8 are supported.
+
+.. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
+

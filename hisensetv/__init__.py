@@ -8,7 +8,6 @@ from typing import List
 from typing import Optional
 from typing import Type
 from typing import Union
-import argparse
 import functools
 import json
 import logging
@@ -39,7 +38,7 @@ class HisenseTvAuthorizationError(HisenseTvError):
 
 
 class HisenseTvTimeoutError(HisenseTvError):
-    """ Raised upon a failure to recieve a response in the timeout period. """
+    """ Raised upon a failure to receive a response in the timeout period. """
 
     pass
 
@@ -105,9 +104,7 @@ class HisenseTv:
         self._mqtt_client.username_pw_set(
             username=self.username, password=self.password
         )
-        self._mqtt_client.tls_set_context(
-            context=ssl._create_unverified_context()
-        )
+        self._mqtt_client.tls_set_context(context=ssl._create_unverified_context())
         self._mqtt_client.tls_insecure_set(True)
 
         self._mqtt_client.on_connect = self._on_connect
@@ -122,9 +119,9 @@ class HisenseTv:
         while not self.connected:
             time.sleep(0.01)
             if time.monotonic() - start_time > self.timeout:
-                raise HisenseTvTimeoutError(
-                    f"failed to connect in {self.timeout:.3f}s"
-                )
+                raise HisenseTvTimeoutError(f"failed to connect in {self.timeout:.3f}s")
+
+        return self
 
     def __exit__(
         self,
@@ -154,10 +151,7 @@ class HisenseTv:
         self.connected = True
 
     def _on_message(
-        self,
-        client: mqtt.Client,
-        userdata: Optional[Any],
-        msg: mqtt.MQTTMessage,
+        self, client: mqtt.Client, userdata: Optional[Any], msg: mqtt.MQTTMessage,
     ):
         """ Callback upon MQTT broker message on a subcribed topic. """
         if msg.payload:
@@ -174,8 +168,7 @@ class HisenseTv:
                 raise
 
             self.logger.debug(
-                f"Recieved message on topic {msg.topic} with payload: "
-                f"{payload}"
+                f"Recieved message on topic {msg.topic} with payload: " f"{payload}"
             )
         else:
             payload = msg.payload
@@ -192,11 +185,7 @@ class HisenseTv:
             ) from e
 
     def _call_service(
-        self,
-        *,
-        service: str,
-        action: str,
-        payload: Optional[Union[str, dict]] = None,
+        self, *, service: str, action: str, payload: Optional[Union[str, dict]] = None,
     ):
         """
         Calls a service on the TV API.
@@ -216,13 +205,7 @@ class HisenseTv:
             payload = json.dumps(payload)
 
         full_topic = posixpath.join(
-            "/",
-            "remoteapp",
-            "tv",
-            service,
-            self._device_topic,
-            "actions",
-            action,
+            "/", "remoteapp", "tv", service, self._device_topic, "actions", action,
         )
 
         msg = self._mqtt_client.publish(topic=full_topic, payload=payload)
@@ -235,9 +218,7 @@ class HisenseTv:
         Args:
             keyname: Name of the key press to send.
         """
-        self._call_service(
-            service="remote_service", action="sendkey", payload=keyname
-        )
+        self._call_service(service="remote_service", action="sendkey", payload=keyname)
 
     @_check_connected
     def send_key_power(self):
@@ -388,13 +369,10 @@ class HisenseTv:
         volume = int(volume)
         if volume < 0 or volume > 100:
             raise ValueError(
-                f"volume of {volume!r} is invalid, "
-                "volume must be between 0 and 100"
+                f"volume of {volume!r} is invalid, volume must be between 0 and 100"
             )
         self._call_service(
-            service="platform_service",
-            action="changevolume",
-            payload=str(volume),
+            service="platform_service", action="changevolume", payload=str(volume),
         )
 
     @_check_connected
@@ -425,72 +403,3 @@ class HisenseTv:
             raise HisenseTvAuthorizationError(
                 f"authorization failed with code {result}"
             )
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Hisense TV control.")
-    parser.add_argument(
-        "hostname", type=str, help="Hostname or IP for the TV."
-    )
-    parser.add_argument(
-        "--authorize",
-        action="store_true",
-        help="Authorize this API to access the TV.",
-    )
-    parser.add_argument(
-        "--get",
-        action="append",
-        default=[],
-        choices=["sources", "volume"],
-        help="Gets a value from the TV.",
-    )
-    parser.add_argument(
-        "--key",
-        action="append",
-        default=[],
-        choices=[
-            "back",
-            "down",
-            "exit",
-            "left",
-            "menu",
-            "power",
-            "right",
-            "up",
-        ],
-        help="Sends a keypress to the TV.",
-    )
-    parser.add_argument(
-        "-v", "--verbose", action="count", default=0, help="Logging verbosity."
-    )
-    args = parser.parse_args()
-
-    if args.verbose:
-        level = logging.DEBUG
-    else:
-        level = logging.INFO
-    logging.basicConfig(level=level)
-    logger = logging.getLogger(__name__)
-
-    tv = HisenseTv(args.hostname, enable_client_logger=args.verbose >= 2)
-    with tv:
-        if args.authorize:
-            tv.start_authorization()
-            code = input("Please enter the 4-digit code: ")
-            tv.send_authorization_code(code)
-
-        for key in args.key:
-            func = getattr(tv, f"send_key_{key}")
-            logger.info(f"sending keypress: {key}")
-            func()
-
-        for getter in args.get:
-            func = getattr(tv, f"get_{getter}")
-            output = func()
-            if isinstance(output, dict) or isinstance(output, list):
-                output = json.dumps(output, indent=4)
-            logger.info(f"{getter}: {output}")
-
-
-if __name__ == "__main__":
-    main()
