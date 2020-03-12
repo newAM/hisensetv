@@ -218,62 +218,93 @@ class HisenseTv:
         Args:
             keyname: Name of the key press to send.
         """
-        self._call_service(service="remote_service", action="sendkey", payload=keyname)
+        try:
+           self._call_service(service="remote_service", action="sendkey", payload=keyname)
+           result = True
+        except json.JSONDecodeError:
+           self.logger.error(f"ERROR - sendkey: {payload!r}")
+           result = False
+        return result
 
     @_check_connected
     def send_key_power(self):
         """ Sends a keypress of the powerkey to the TV. """
-        self._send_key("KEY_POWER")
+        return self._send_key("KEY_POWER")
 
     @_check_connected
     def send_key_up(self):
         """ Sends a keypress of the up key to the TV. """
-        self._send_key("KEY_UP")
+        return self._send_key("KEY_UP")
 
     @_check_connected
     def send_key_down(self):
         """ Sends a keypress of the down key to the TV. """
-        self._send_key("KEY_DOWN")
+        return self._send_key("KEY_DOWN")
 
     @_check_connected
     def send_key_left(self):
         """ Sends a keypress of the left key to the TV. """
-        self._send_key("KEY_LEFT")
+        return self._send_key("KEY_LEFT")
 
     @_check_connected
     def send_key_right(self):
         """ Sends a keypress of the right key to the TV. """
-        self._send_key("KEY_RIGHT")
+        return self._send_key("KEY_RIGHT")
 
     @_check_connected
     def send_key_menu(self):
         """ Sends a keypress of the menu key to the TV. """
-        self._send_key("KEY_MENU")
+        return self._send_key("KEY_MENU")
 
     @_check_connected
     def send_key_back(self):
         """ Sends a keypress of the back key to the TV. """
-        self._send_key("KEY_RETURNS")
+        return self._send_key("KEY_RETURNS")
 
     @_check_connected
     def send_key_exit(self):
         """ Sends a keypress of the exit key to the TV. """
-        self._send_key("KEY_EXIT")
+        return self._send_key("KEY_EXIT")
 
     @_check_connected
     def send_key_ok(self):
         """ Sends a keypress of the OK key to the TV. """
-        self._send_key("KEY_OK")
+        return self._send_key("KEY_OK")
 
     @_check_connected
     def send_key_volume_up(self):
         """ Sends a keypress of the volume up key to the TV. """
-        self._send_key("KEY_VOLUMEUP")
+        return self._send_key("KEY_VOLUMEUP")
 
     @_check_connected
     def send_key_volume_down(self):
         """ Sends a keypress of the volume down key to the TV. """
-        self._send_key("KEY_VOLUMEDOWN")
+        return self._send_key("KEY_VOLUMEDOWN")
+
+    @_check_connected
+    def send_key_forwards(self):
+        """ Sends a keypress of the fast forward key to the TV. """
+        return self._send_key("KEY_FORWARDS")
+
+    @_check_connected
+    def send_key_backs(self):
+        """ Sends a keypress of the rewind key to the TV. """
+        return self._send_key("KEY_BACKS")
+
+    @_check_connected
+    def send_key_stop(self):
+        """ Sends a keypress of the stop key to the TV. """
+        return self._send_key("KEY_STOP")
+
+    @_check_connected
+    def send_key_play(self):
+        """ Sends a keypress of the play key to the TV. """
+        return self._send_key("KEY_PLAY")
+
+    @_check_connected
+    def send_key_pause(self):
+        """ Sends a keypress of the stop key to the TV. """
+        return self._send_key("KEY_PAUSE")
 
     @_check_connected
     def get_sources(self) -> List[Dict[str, str]]:
