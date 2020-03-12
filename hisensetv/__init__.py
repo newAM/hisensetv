@@ -261,6 +261,21 @@ class HisenseTv:
         self._send_key("KEY_EXIT")
 
     @_check_connected
+    def send_key_ok(self):
+        """ Sends a keypress of the OK key to the TV. """
+        self._send_key("KEY_OK")
+
+    @_check_connected
+    def send_key_volume_up(self):
+        """ Sends a keypress of the volume up key to the TV. """
+        self._send_key("KEY_VOLUMEUP")
+
+    @_check_connected
+    def send_key_volume_down(self):
+        """ Sends a keypress of the volume down key to the TV. """
+        self._send_key("KEY_VOLUMEDOWN")
+
+    @_check_connected
     def get_sources(self) -> List[Dict[str, str]]:
         """
         Gets the video sources from the TV.
