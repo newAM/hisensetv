@@ -163,7 +163,7 @@ class HisenseTv:
 
             try:
                 payload = json.loads(payload)
-            except json.JSONDecodeError:
+            except:
                 self.logger.error(f"Payload is invalid JSON: {payload!r}")
                 raise
 
@@ -221,8 +221,8 @@ class HisenseTv:
         try:
            self._call_service(service="remote_service", action="sendkey", payload=keyname)
            result = True
-        except json.JSONDecodeError:
-           self.logger.error(f"ERROR - sendkey: {payload!r}")
+        except:
+           self.logger.error(f"ERROR - sendkey: {keyname!r}")
            result = False
         return result
 
