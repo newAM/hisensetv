@@ -163,7 +163,7 @@ class HisenseTv:
 
             try:
                 payload = json.loads(payload)
-            except:
+            except json.JSONDecodeError:
                 self.logger.error(f"Payload is invalid JSON: {payload!r}")
                 raise
 
@@ -218,13 +218,7 @@ class HisenseTv:
         Args:
             keyname: Name of the key press to send.
         """
-        try:
-           self._call_service(service="remote_service", action="sendkey", payload=keyname)
-           result = True
-        except:
-           self.logger.error(f"ERROR - sendkey: {keyname!r}")
-           result = False
-        return result
+        self._call_service(service="remote_service", action="sendkey", payload=keyname)
 
     @_check_connected
     def send_key_power(self):
