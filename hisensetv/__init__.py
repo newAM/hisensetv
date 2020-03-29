@@ -276,12 +276,12 @@ class HisenseTv:
         self.send_key("KEY_VOLUMEDOWN")
 
     @_check_connected
-    def send_key_forwards(self):
+    def send_key_fast_forward(self):
         """ Sends a keypress of the fast forward key to the TV. """
         self.send_key("KEY_FORWARDS")
 
     @_check_connected
-    def send_key_backs(self):
+    def send_key_rewind(self):
         """ Sends a keypress of the rewind key to the TV. """
         self.send_key("KEY_BACKS")
 
