@@ -25,12 +25,8 @@ Usage
 ::
 
     hisensetv --help                 
-    usage: hisensetv.py 
-        [-h] 
-        [--authorize] 
-        [--get {sources,volume}] 
-        [--key {back,down,exit,fast_forward,left,menu,ok,power,rewind,right,up,volume_down,volume_up}] 
-        [-v] 
+    usage: hisensetv.py  [-h] [--authorize] [-v] [--get {sources,volume}] 
+        [--key {back,down,exit,fast_forward,left,menu,ok,pause,play,power,rewind,right,stop,up,volume_down,volume_up}] 
         hostname
 
     Hisense TV control.
@@ -43,7 +39,7 @@ Usage
       --authorize           Authorize this API to access the TV.
       --get {sources,volume}
                             Gets a value from the TV.
-      --key {back,down,exit,fast_forward,left,menu,ok,power,rewind,right,up,volume_down,volume_up}
+      --key {back,down,exit,fast_forward,left,menu,ok,pause,play,power,rewind,right,stop,up,volume_down,volume_up}
             
                             Sends a keypress to the TV.
       -v, --verbose         Logging verbosity.
