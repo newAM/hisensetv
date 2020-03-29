@@ -37,7 +37,9 @@ Usage
       --authorize           Authorize this API to access the TV.
       --get {sources,volume}
                             Gets a value from the TV.
-      --key {back,down,exit,left,menu,power,right,up}
+      --key {back,down,exit,left,menu,ok,power,right,up}
+      
+      
                             Sends a keypress to the TV.
       -v, --verbose         Logging verbosity.
 
