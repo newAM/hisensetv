@@ -1,6 +1,7 @@
 import argparse
-import logging
 import json
+import logging
+import ssl
 from . import HisenseTv
 
 
@@ -25,6 +26,11 @@ def main():
         help="Sends a keypress to the TV.",
     )
     parser.add_argument(
+        "--no-ssl",
+        action="store_true",
+        help="Do not connect with SSL (required for some models).",
+    )
+    parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="Logging verbosity."
     )
     args = parser.parse_args()
@@ -44,7 +50,14 @@ def main():
     root_logger.setLevel(level)
     logger = logging.getLogger(__name__)
 
-    tv = HisenseTv(args.hostname, enable_client_logger=args.verbose >= 2)
+    if args.no_ssl:
+        ssl_context = None
+    else:
+        ssl_context = ssl._create_unverified_context()
+
+    tv = HisenseTv(
+        args.hostname, enable_client_logger=args.verbose >= 2, ssl_context=ssl_context
+    )
     with tv:
         if args.authorize:
             tv.start_authorization()

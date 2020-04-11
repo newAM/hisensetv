@@ -20,14 +20,13 @@ Windows
 
     py -3.8 -m pip install hisensetv
 
-Usage
-*****
+CLI Usage
+*********
 ::
 
-    hisensetv --help                 
-    usage: hisensetv.py  [-h] [--authorize] [-v] [--get {sources,volume}] 
-        [--key {back,down,exit,fast_forward,left,menu,ok,pause,play,power,rewind,right,stop,up,volume_down,volume_up}] 
-        hostname
+    usage: hisensetv [-h] [--authorize] [--get {sources,volume}]
+                     [--key {back,down,exit,left,menu,power,right,up}] [--no-ssl] [-v]
+                     hostname
 
     Hisense TV control.
 
@@ -39,9 +38,9 @@ Usage
       --authorize           Authorize this API to access the TV.
       --get {sources,volume}
                             Gets a value from the TV.
-      --key {back,down,exit,fast_forward,left,menu,ok,pause,play,power,rewind,right,stop,up,volume_down,volume_up}
-            
+      --key {back,down,exit,left,menu,power,right,up}
                             Sends a keypress to the TV.
+      --no-ssl              Do not connect with SSL (required for some models).
       -v, --verbose         Logging verbosity.
 
 One Time Setup
@@ -68,6 +67,16 @@ Gets
         "volume_value": 1
     }
 
+
+No SSL
+======
+Some models do not have self-signed certificates and will fail to connect
+without ``--no-ssl``.
+
+Please open an issue if yours is not listed here!
+
+    * H43A6250UK
+
 Limitations
 ***********
 
@@ -79,7 +88,6 @@ Concurrency
 
 Reliability
 ===========
-* Tested only with a single TV.
 * The concurrency issues contribute to reliability issues in general.
 * Unit tests do not exist yet.
 

@@ -70,6 +70,9 @@ class HisenseTv:
                   typically "multimqttservice".
         timeout: Duration to wait for a response from the TV for API calls.
         enable_client_logger: Enable MQTT client logging for debug.
+        ssl_context:
+            SSL context to utilize for the connection,
+            ``None`` to skip SSL usage (required for some models).
     """
 
     #: Services in the MQTT API.
@@ -84,6 +87,7 @@ class HisenseTv:
         password: str = "multimqttservice",
         timeout: Union[int, float] = 10.0,
         enable_client_logger: bool = False,
+        ssl_context: Optional[ssl.SSLContext] = ssl._create_unverified_context(),
     ):
         self.logger = logging.getLogger(__name__)
         self.hostname = hostname
@@ -94,6 +98,7 @@ class HisenseTv:
         self.enable_client_logger = enable_client_logger
         self.client_id = f"{self.__class__.__name__}/{uuid.uuid4()!s}"
         self.connected = False
+        self.ssl_context = ssl_context
 
         self._mac = "XX:XX:XX:XX:XX:XY"
         self._device_topic = f"{self._mac.upper()}$normal"
@@ -104,8 +109,8 @@ class HisenseTv:
         self._mqtt_client.username_pw_set(
             username=self.username, password=self.password
         )
-        self._mqtt_client.tls_set_context(context=ssl._create_unverified_context())
-        self._mqtt_client.tls_insecure_set(True)
+        if self.ssl_context is not None:
+            self._mqtt_client.tls_set_context(context=self.ssl_context)
 
         self._mqtt_client.on_connect = self._on_connect
         self._mqtt_client.on_message = self._on_message
@@ -113,6 +118,7 @@ class HisenseTv:
             self._mqtt_client.enable_logger()
 
         self._mqtt_client.connect(self.hostname, self.port)
+
         self._mqtt_client.loop_start()
 
         start_time = time.monotonic()
