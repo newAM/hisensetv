@@ -5,3 +5,4 @@
    :caption: Contents
 
    api
+   license
