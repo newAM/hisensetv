@@ -1,7 +1,7 @@
 Python API for Hisense Televisions
 ##################################
 
-|Black| |PyPi Version|
+|Black| |PyPi Version| |docs|
 
 A work-in-progress python API for Hisense televisions based off of `mqtt-hisensetv`_.
 
@@ -72,24 +72,26 @@ Limitations
 ***********
 
 Concurrency
-***********
+===========
 * Multiple instances of this class will conflict with one-another.
 * Not thread-safe.
 * This API really *should* be asyncio in 2020, but asyncio is not yet part of the paho mqtt library (see `455`_).
 
 Reliability
-***********
+===========
 * Tested only with a single TV.
 * The concurrency issues contribute to reliability issues in general.
 * Unit tests do not exist yet.
 
 Security
-********
+========
 * The self-signed certificates from the TV are completely bypassed.
 
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 .. |PyPi Version| image:: https://img.shields.io/pypi/v/hisensetv
     :target: https://pypi.org/project/hisensetv/
+.. |docs| image:: https://readthedocs.org/projects/hisensetv/badge/?version=latest
+   :target: https://hisensetv.readthedocs.io/en/latest/?badge=latest
 .. _mqtt-hisensetv: https://github.com/Krazy998/mqtt-hisensetv
 .. _455: https://github.com/eclipse/paho.mqtt.python/issues/455
