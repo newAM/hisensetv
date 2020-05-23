@@ -87,7 +87,7 @@ class HisenseTv:
         password: str = "multimqttservice",
         timeout: Union[int, float] = 10.0,
         enable_client_logger: bool = False,
-        ssl_context: Optional[ssl.SSLContext] = ssl._create_unverified_context(),
+        ssl_context: Optional[ssl.SSLContext] = None,
     ):
         self.logger = logging.getLogger(__name__)
         self.hostname = hostname
@@ -174,7 +174,7 @@ class HisenseTv:
                 raise
 
             self.logger.debug(
-                f"Recieved message on topic {msg.topic} with payload: " f"{payload}"
+                f"Recieved message on topic {msg.topic} with payload: {payload}"
             )
         else:
             payload = msg.payload
