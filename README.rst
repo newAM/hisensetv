@@ -1,7 +1,7 @@
 Python API for Hisense Televisions
 ##################################
 
-|Black| |PyPi Version| |docs|
+|Build Status| |Black| |PyPi Version| |docs|
 
 A work-in-progress python API for Hisense televisions based off of `mqtt-hisensetv`_.
 
@@ -97,6 +97,8 @@ Security
 
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
+.. |Build Status| image:: https://api.travis-ci.com/newAM/hisensetv.svg?branch=master
+   :target: https://travis-ci.com/newAM/hisensetv
 .. |PyPi Version| image:: https://img.shields.io/pypi/v/hisensetv
     :target: https://pypi.org/project/hisensetv/
 .. |docs| image:: https://readthedocs.org/projects/hisensetv/badge/?version=latest
