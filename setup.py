@@ -15,7 +15,7 @@ setup(
     name="hisensetv",
     description="MQTT interface to Hisense televisions.",
     long_description=long_description,
-    version="0.1.0",
+    version="0.1.1",
     author="Alex M.",
     author_email="7845120+newAM@users.noreply.github.com",
     url="https://github.com/newAM/hisensetv",
