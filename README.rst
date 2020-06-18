@@ -45,6 +45,8 @@ CLI Usage
 
 One Time Setup
 ==============
+**Note:** This is not required for all models!
+
 ::
 
     hisensetv 10.0.0.128 --authorize   
