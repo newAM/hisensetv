@@ -226,6 +226,51 @@ class HisenseTv:
         """
         self._call_service(service="remote_service", action="sendkey", payload=keyname)
 
+    def launch_app(self,app: str):
+        
+        if app == "amazon":
+            launch={"name" : "Amazon","urlType" : 37,"storeType" : 0,"url" : "amazon"}
+        
+        if app == "netflix":
+            launch={"name" : "Netflix","urlType" : 37,"storeType" : 0,"url" : "netflix"}
+        
+        elif app =="youtube":
+            launch={"name" : "YouTube","urlType" : 37,"storeType" : 0,"url" : "youtube"}
+        
+        else:
+            pass
+        
+        self._call_service(service="ui_service", action="launchapp", payload=launch)
+
+    def change_source(self,id: str):
+
+        if id == "0":
+            source = {"sourceid" : "0"}
+
+        if id =="1":
+            source = {"sourceid" : "1"}
+
+        if id =="2":
+            source = {"sourceid" : "2"}
+
+        if id =="3":
+            source = {"sourceid" : "3"}
+        
+        if id =="4":
+            source = {"sourceid" : "4"}
+
+        if id =="5":
+            source = {"sourceid" : "5"}
+
+        if id =="6":
+            source = {"sourceid" : "6"}
+
+        if id =="7":
+            source = {"sourceid" : "7"}
+
+        self._call_service(service="ui_service", action="changesource", payload=source)
+
+
     @_check_connected
     def send_key_power(self):
         """ Sends a keypress of the powerkey to the TV. """
@@ -305,6 +350,63 @@ class HisenseTv:
     def send_key_pause(self):
         """ Sends a keypress of the stop key to the TV. """
         self.send_key("KEY_PAUSE")
+
+    @_check_connected
+    def send_key_netflix(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.launch_app("netflix")
+    
+    @_check_connected
+    def send_key_youtube(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.launch_app("youtube")
+
+    @_check_connected
+    def send_key_amazon(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.launch_app("amazon")
+
+    @_check_connected
+    def send_key_source_0(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.change_source("0")
+    
+    @_check_connected
+    def send_key_source_1(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.change_source("1")
+    
+    @_check_connected
+    def send_key_source_2(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.change_source("2")
+
+    @_check_connected
+    def send_key_source_3(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.change_source("3")
+
+    @_check_connected
+    def send_key_source_4(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.change_source("4")
+
+    @_check_connected
+    def send_key_source_5(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.change_source("5")
+
+    @_check_connected
+    def send_key_source_6(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.change_source("6")
+
+    @_check_connected
+    def send_key_source_7(self):
+        """ Sends a keypress of the stop key to the TV. """
+        self.change_source("7")
+
+
 
     @_check_connected
     def get_sources(self) -> List[Dict[str, str]]:
