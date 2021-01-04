@@ -348,62 +348,62 @@ class HisenseTv:
 
     @_check_connected
     def send_key_pause(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sends a keypress of the pause key to the TV. """
         self.send_key("KEY_PAUSE")
 
     @_check_connected
     def send_key_netflix(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sends a keypress of the Netflix key to the TV. """
         self.launch_app("netflix")
     
     @_check_connected
     def send_key_youtube(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sends a keypress of the YouTube key to the TV. """
         self.launch_app("youtube")
 
     @_check_connected
     def send_key_amazon(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sends a keypress of the Amazon key to the TV. """
         self.launch_app("amazon")
 
     @_check_connected
     def send_key_source_0(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sets TV to Input 0 """
         self.change_source("0")
     
     @_check_connected
     def send_key_source_1(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sets TV to Input 1 """
         self.change_source("1")
     
     @_check_connected
     def send_key_source_2(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sets TV to Input 2 """
         self.change_source("2")
 
     @_check_connected
     def send_key_source_3(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sets TV to Input 3 """
         self.change_source("3")
 
     @_check_connected
     def send_key_source_4(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sets TV to Input 4 """
         self.change_source("4")
 
     @_check_connected
     def send_key_source_5(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sets TV to Input 5 """
         self.change_source("5")
 
     @_check_connected
     def send_key_source_6(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sets TV to Input 6 """
         self.change_source("6")
 
     @_check_connected
     def send_key_source_7(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """ Sets TV to Input 7 """
         self.change_source("7")
 
 
