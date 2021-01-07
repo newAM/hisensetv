@@ -4,15 +4,18 @@ import logging
 import ssl
 from . import HisenseTv
 
-choices_volume=[]
-for testvar in range(0,101):
+choices_volume = []
+for testvar in range(0, 101):
     choices_volume.append(str(testvar))
+
 
 def main():
     parser = argparse.ArgumentParser(description="Hisense TV control.")
     parser.add_argument("hostname", type=str, help="Hostname or IP for the TV.")
     parser.add_argument(
-        "--authorize", action="store_true", help="Authorize this API to access the TV.",
+        "--authorize",
+        action="store_true",
+        help="Authorize this API to access the TV.",
     )
     parser.add_argument(
         "--get",
@@ -25,7 +28,34 @@ def main():
         "--key",
         action="append",
         default=[],
-        choices=["power","up","down","left","right","menu","back","exit","ok","volume_up","volume_down","fast_forward","rewind","stop","play","pause","netflix","youtube","source_1","source_2","source_3","source_4","source_5","source_6","source_7","amazon"],
+        choices=[
+            "power",
+            "up",
+            "down",
+            "left",
+            "right",
+            "menu",
+            "back",
+            "exit",
+            "ok",
+            "volume_up",
+            "volume_down",
+            "fast_forward",
+            "rewind",
+            "stop",
+            "play",
+            "pause",
+            "netflix",
+            "youtube",
+            "source_1",
+            "source_2",
+            "source_3",
+            "source_4",
+            "source_5",
+            "source_6",
+            "source_7",
+            "amazon",
+        ],
         help="Sends a keypress to the TV.",
     )
     parser.add_argument(

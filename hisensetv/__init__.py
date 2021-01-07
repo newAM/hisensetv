@@ -157,7 +157,10 @@ class HisenseTv:
         self.connected = True
 
     def _on_message(
-        self, client: mqtt.Client, userdata: Optional[Any], msg: mqtt.MQTTMessage,
+        self,
+        client: mqtt.Client,
+        userdata: Optional[Any],
+        msg: mqtt.MQTTMessage,
     ):
         """ Callback upon MQTT broker message on a subcribed topic. """
         if msg.payload:
@@ -191,7 +194,11 @@ class HisenseTv:
             ) from e
 
     def _call_service(
-        self, *, service: str, action: str, payload: Optional[Union[str, dict]] = None,
+        self,
+        *,
+        service: str,
+        action: str,
+        payload: Optional[Union[str, dict]] = None,
     ):
         """
         Calls a service on the TV API.
@@ -211,7 +218,13 @@ class HisenseTv:
             payload = json.dumps(payload)
 
         full_topic = posixpath.join(
-            "/", "remoteapp", "tv", service, self._device_topic, "actions", action,
+            "/",
+            "remoteapp",
+            "tv",
+            service,
+            self._device_topic,
+            "actions",
+            action,
         )
 
         msg = self._mqtt_client.publish(topic=full_topic, payload=payload)
@@ -226,50 +239,59 @@ class HisenseTv:
         """
         self._call_service(service="remote_service", action="sendkey", payload=keyname)
 
-    def launch_app(self,app: str):
-        
+    def launch_app(self, app: str):
+
         if app == "amazon":
-            launch={"name" : "Amazon","urlType" : 37,"storeType" : 0,"url" : "amazon"}
-        
+            launch = {"name": "Amazon", "urlType": 37, "storeType": 0, "url": "amazon"}
+
         if app == "netflix":
-            launch={"name" : "Netflix","urlType" : 37,"storeType" : 0,"url" : "netflix"}
-        
-        elif app =="youtube":
-            launch={"name" : "YouTube","urlType" : 37,"storeType" : 0,"url" : "youtube"}
-        
+            launch = {
+                "name": "Netflix",
+                "urlType": 37,
+                "storeType": 0,
+                "url": "netflix",
+            }
+
+        elif app == "youtube":
+            launch = {
+                "name": "YouTube",
+                "urlType": 37,
+                "storeType": 0,
+                "url": "youtube",
+            }
+
         else:
             pass
-        
+
         self._call_service(service="ui_service", action="launchapp", payload=launch)
 
-    def change_source(self,id: str):
+    def change_source(self, id: str):
 
         if id == "0":
-            source = {"sourceid" : "0"}
+            source = {"sourceid": "0"}
 
-        if id =="1":
-            source = {"sourceid" : "1"}
+        if id == "1":
+            source = {"sourceid": "1"}
 
-        if id =="2":
-            source = {"sourceid" : "2"}
+        if id == "2":
+            source = {"sourceid": "2"}
 
-        if id =="3":
-            source = {"sourceid" : "3"}
-        
-        if id =="4":
-            source = {"sourceid" : "4"}
+        if id == "3":
+            source = {"sourceid": "3"}
 
-        if id =="5":
-            source = {"sourceid" : "5"}
+        if id == "4":
+            source = {"sourceid": "4"}
 
-        if id =="6":
-            source = {"sourceid" : "6"}
+        if id == "5":
+            source = {"sourceid": "5"}
 
-        if id =="7":
-            source = {"sourceid" : "7"}
+        if id == "6":
+            source = {"sourceid": "6"}
+
+        if id == "7":
+            source = {"sourceid": "7"}
 
         self._call_service(service="ui_service", action="changesource", payload=source)
-
 
     @_check_connected
     def send_key_power(self):
@@ -355,7 +377,7 @@ class HisenseTv:
     def send_key_netflix(self):
         """ Sends a keypress of the Netflix key to the TV. """
         self.launch_app("netflix")
-    
+
     @_check_connected
     def send_key_youtube(self):
         """ Sends a keypress of the YouTube key to the TV. """
@@ -370,12 +392,12 @@ class HisenseTv:
     def send_key_source_0(self):
         """ Sets TV to Input 0 """
         self.change_source("0")
-    
+
     @_check_connected
     def send_key_source_1(self):
         """ Sets TV to Input 1 """
         self.change_source("1")
-    
+
     @_check_connected
     def send_key_source_2(self):
         """ Sets TV to Input 2 """
@@ -405,8 +427,6 @@ class HisenseTv:
     def send_key_source_7(self):
         """ Sets TV to Input 7 """
         self.change_source("7")
-
-
 
     @_check_connected
     def get_sources(self) -> List[Dict[str, str]]:
@@ -520,7 +540,9 @@ class HisenseTv:
                 f"volume of {volume!r} is invalid, volume must be between 0 and 100"
             )
         self._call_service(
-            service="platform_service", action="changevolume", payload=str(volume),
+            service="platform_service",
+            action="changevolume",
+            payload=str(volume),
         )
 
     @_check_connected
