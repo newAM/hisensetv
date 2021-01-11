@@ -261,7 +261,7 @@ class HisenseTv:
             }
 
         else:
-            pass
+            raise ValueError(f"{app} is not a known app.")
 
         self._call_service(service="ui_service", action="launchapp", payload=launch)
 
