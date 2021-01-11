@@ -4,10 +4,6 @@ import logging
 import ssl
 from . import HisenseTv
 
-choices_volume = []
-for testvar in range(0, 101):
-    choices_volume.append(str(testvar))
-
 
 def main():
     parser = argparse.ArgumentParser(description="Hisense TV control.")
