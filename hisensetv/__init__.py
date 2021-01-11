@@ -266,30 +266,8 @@ class HisenseTv:
         self._call_service(service="ui_service", action="launchapp", payload=launch)
 
     def change_source(self, id: str):
-
-        if id == "0":
-            source = {"sourceid": "0"}
-
-        if id == "1":
-            source = {"sourceid": "1"}
-
-        if id == "2":
-            source = {"sourceid": "2"}
-
-        if id == "3":
-            source = {"sourceid": "3"}
-
-        if id == "4":
-            source = {"sourceid": "4"}
-
-        if id == "5":
-            source = {"sourceid": "5"}
-
-        if id == "6":
-            source = {"sourceid": "6"}
-
-        if id == "7":
-            source = {"sourceid": "7"}
+        payload = {"sourceid": id}
+        self._call_service(service="ui_service", action="changesource", payload=payload)
 
         self._call_service(service="ui_service", action="changesource", payload=source)
 
