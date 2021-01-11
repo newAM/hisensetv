@@ -2,7 +2,7 @@ import argparse
 import json
 import logging
 import ssl
-from . import HisenseTv
+from * import HisenseTv
 
 
 def main():
@@ -36,13 +36,29 @@ def main():
             "ok",
             "volume_up",
             "volume_down",
+            "channel_up",
+            "channel_down",
             "fast_forward",
             "rewind",
             "stop",
             "play",
             "pause",
+            "mute",
+            "home",
+            "subtitle",
             "netflix",
             "youtube",
+            "amazon",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
             "source_1",
             "source_2",
             "source_3",
@@ -50,7 +66,6 @@ def main():
             "source_5",
             "source_6",
             "source_7",
-            "amazon",
         ],
         help="Sends a keypress to the TV.",
     )
