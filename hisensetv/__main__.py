@@ -1,8 +1,10 @@
+#!/usr/bin/env python3.8
+
 import argparse
 import json
 import logging
 import ssl
-from * import HisenseTv
+from . import HisenseTv
 
 
 def main():

@@ -227,7 +227,6 @@ class HisenseTv:
         msg.wait_for_publish()
 
     def send_key(self, keyname: str):
-        print(keyname) # just for testing !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         """
         Sends a keypress to the TV, as if it had been pressed on the IR remote.
         Args:
@@ -237,17 +236,14 @@ class HisenseTv:
 
     def _launch_app(self, app: str):
         """
-        Sends a launch command to the TV, as if it had been pressed on the "remoteNOW" app.
+        Sends a launch command to the TV, as if it had been pressed on the
+        "remoteNOW" app.
+
         Args:
             app: Name of the app to launch
         """
         if app == "amazon":
-            launch = {
-                "name": "Amazon", 
-                "urlType": 37, 
-                "storeType": 0, 
-                "url": "amazon"
-            }
+            launch = {"name": "Amazon", "urlType": 37, "storeType": 0, "url": "amazon"}
 
         elif app == "netflix":
             launch = {
@@ -277,7 +273,6 @@ class HisenseTv:
         """
         payload = {"sourceid": id}
         self._call_service(service="ui_service", action="changesource", payload=payload)
-
 
     @_check_connected
     def send_key_power(self):
@@ -373,7 +368,7 @@ class HisenseTv:
     def send_key_mute(self):
         """ Sends a keypress of the mute key to the TV. """
         self.send_key("KEY_MUTE")
-        
+
     @_check_connected
     def send_key_home(self):
         """ Sends a keypress of the home key to the TV. """
@@ -398,7 +393,7 @@ class HisenseTv:
     def send_key_amazon(self):
         """ Sends a keypress of the Amazon key to the TV. """
         self._launch_app("amazon")
-    
+
     @_check_connected
     def send_key_0(self):
         """ Sends a keypress of the 0 key to the TV. """
@@ -423,7 +418,7 @@ class HisenseTv:
     def send_key_4(self):
         """ Sends a keypress of the 4 key to the TV. """
         self.send_key("KEY_4")
-    
+
     @_check_connected
     def send_key_5(self):
         """ Sends a keypress of the 5 key to the TV. """
@@ -433,7 +428,7 @@ class HisenseTv:
     def send_key_6(self):
         """ Sends a keypress of the 6 key to the TV. """
         self.send_key("KEY_6")
-    
+
     @_check_connected
     def send_key_7(self):
         """ Sends a keypress of the 7 key to the TV. """
@@ -443,7 +438,7 @@ class HisenseTv:
     def send_key_8(self):
         """ Sends a keypress of the 8 key to the TV. """
         self.send_key("KEY_8")
-    
+
     @_check_connected
     def send_key_9(self):
         """ Sends a keypress of the 9 key to the TV. """
