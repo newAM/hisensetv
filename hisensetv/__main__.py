@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.8
+
 import argparse
 import json
 import logging
@@ -9,7 +11,9 @@ def main():
     parser = argparse.ArgumentParser(description="Hisense TV control.")
     parser.add_argument("hostname", type=str, help="Hostname or IP for the TV.")
     parser.add_argument(
-        "--authorize", action="store_true", help="Authorize this API to access the TV.",
+        "--authorize",
+        action="store_true",
+        help="Authorize this API to access the TV.",
     )
     parser.add_argument(
         "--get",
@@ -22,7 +26,49 @@ def main():
         "--key",
         action="append",
         default=[],
-        choices=["back", "down", "exit", "left", "menu", "power", "right", "up"],
+        choices=[
+            "power",
+            "up",
+            "down",
+            "left",
+            "right",
+            "menu",
+            "back",
+            "exit",
+            "ok",
+            "volume_up",
+            "volume_down",
+            "channel_up",
+            "channel_down",
+            "fast_forward",
+            "rewind",
+            "stop",
+            "play",
+            "pause",
+            "mute",
+            "home",
+            "subtitle",
+            "netflix",
+            "youtube",
+            "amazon",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "source_1",
+            "source_2",
+            "source_3",
+            "source_4",
+            "source_5",
+            "source_6",
+            "source_7",
+        ],
         help="Sends a keypress to the TV.",
     )
     parser.add_argument(
@@ -33,6 +79,7 @@ def main():
     parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="Logging verbosity."
     )
+
     args = parser.parse_args()
 
     if args.verbose:
