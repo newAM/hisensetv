@@ -14,7 +14,6 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",  # google style docstrings
-    "sphinx_autodoc_typehints",  # must be after napoleon
 ]
 
 

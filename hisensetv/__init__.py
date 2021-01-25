@@ -58,13 +58,16 @@ def _check_connected(func: Callable):
 class HisenseTv:
     """
     Hisense TV.
+
     Args:
         hostname: TV hostname or IP.
         port: Port of the MQTT broker on the TV, typically 36669.
-        username: Username for the MQTT broker on the TV,
-                  typically "hisenseservice".
-        password: Password for the MQTT broker on the TV,
-                  typically "multimqttservice".
+        username:
+            Username for the MQTT broker on the TV,
+            typically "hisenseservice".
+        password:
+            Password for the MQTT broker on the TV,
+            typically "multimqttservice".
         timeout: Duration to wait for a response from the TV for API calls.
         enable_client_logger: Enable MQTT client logging for debug.
         ssl_context:
@@ -199,6 +202,7 @@ class HisenseTv:
     ):
         """
         Calls a service on the TV API.
+
         Args:
             service: "platform_service", remote_service", or "ui_service".
             action: The action to send to the service.
@@ -229,6 +233,7 @@ class HisenseTv:
     def send_key(self, keyname: str):
         """
         Sends a keypress to the TV, as if it had been pressed on the IR remote.
+
         Args:
             keyname: Name of the key press to send.
         """
@@ -269,6 +274,8 @@ class HisenseTv:
     def _change_source(self, id: str):
         """
         Sets the source of the TV.
+
+        Args:
             id: id of the Source
         """
         payload = {"sourceid": id}
@@ -488,9 +495,12 @@ class HisenseTv:
     def get_sources(self) -> List[Dict[str, str]]:
         """
         Gets the video sources from the TV.
+
         Returns:
             List of source dictionaries.
+
             Example::
+
                 [
                     {
                         "displayname": "TV",
@@ -549,6 +559,7 @@ class HisenseTv:
     def set_source(self, sourceid: Union[int, str], sourcename: str):
         """
         Sets the video source on the TV.
+
         Args:
             sourceid: Numeric source identier.
             sourcename: Human readable source name.
@@ -564,9 +575,12 @@ class HisenseTv:
     def get_volume(self) -> dict:
         """
         Gets the volume level on the TV.
+
         Returns:
             Dictionary with keys for volume_type and volume_value.
+
             Example::
+
                 {"volume_type": 0, "volume_value": 0}
         """
         self._call_service(service="platform_service", action="getvolume")
@@ -576,8 +590,10 @@ class HisenseTv:
     def set_volume(self, volume: int):
         """
         Sets the volume level on the TV.
+
         Args:
             volume: Volume level from 0-100.
+
         Raises:
             ValueError: Volume level is out of range.
         """
@@ -602,8 +618,10 @@ class HisenseTv:
     def send_authorization_code(self, code: Union[int, str]):
         """
         Sends the authorization code to the TV.
+
         Args:
             code: 4-digit code as displayed on the TV.
+
         Raises:
             HisenseTvAuthorizationError: Failed to authenticate with the TV.
         """
