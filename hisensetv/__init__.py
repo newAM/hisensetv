@@ -337,12 +337,12 @@ class HisenseTv:
         self.send_key("KEY_VOLUMEDOWN")
 
     @_check_connected
-    def send_key_fast_channel_up(self):
+    def send_key_channel_up(self):
         """ Sends a keypress of the channel up key to the TV. """
         self.send_key("KEY_CHANNELUP")
 
     @_check_connected
-    def send_key_fast_channel_down(self):
+    def send_key_channel_down(self):
         """ Sends a keypress of the channel down key to the TV. """
         self.send_key("KEY_CHANNELDOWN")
 
