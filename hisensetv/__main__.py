@@ -61,6 +61,7 @@ def main():
             "7",
             "8",
             "9",
+            "source_0",
             "source_1",
             "source_2",
             "source_3",
