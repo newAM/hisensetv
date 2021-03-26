@@ -16,6 +16,12 @@ def main():
         help="Authorize this API to access the TV.",
     )
     parser.add_argument(
+        "--ifname",
+        type=str,
+        help="Name of the network interface to use",
+        default=""
+    )
+    parser.add_argument(
         "--get",
         action="append",
         default=[],
@@ -104,7 +110,7 @@ def main():
         ssl_context = ssl._create_unverified_context()
 
     tv = HisenseTv(
-        args.hostname, enable_client_logger=args.verbose >= 2, ssl_context=ssl_context
+        args.hostname, enable_client_logger=args.verbose >= 2, ssl_context=ssl_context, network_interface=args.ifname
     )
     with tv:
         if args.authorize:

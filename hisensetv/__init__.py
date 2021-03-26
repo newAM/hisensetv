@@ -15,6 +15,9 @@ import queue
 import ssl
 import time
 import uuid
+import fcntl
+import socket
+import struct
 
 
 class HisenseTvError(Exception):
@@ -55,6 +58,15 @@ def _check_connected(func: Callable):
     return wrapper
 
 
+def get_mac_address(ifname):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        info = fcntl.ioctl(s.fileno(), 0x8927, struct.pack('256s', bytes(ifname, 'utf-8')[:15]))
+        return ':'.join('%02x' % b for b in info[18:24])
+    except Exception:
+        raise HisenseTvError("Unknown network interface: " + ifname)
+
+
 class HisenseTv:
     """
     Hisense TV.
@@ -88,6 +100,7 @@ class HisenseTv:
         timeout: Union[int, float] = 10.0,
         enable_client_logger: bool = False,
         ssl_context: Optional[ssl.SSLContext] = None,
+        network_interface: str = ""
     ):
         self.logger = logging.getLogger(__name__)
         self.hostname = hostname
@@ -100,7 +113,7 @@ class HisenseTv:
         self.connected = False
         self.ssl_context = ssl_context
 
-        self._mac = "XX:XX:XX:XX:XX:XY"
+        self._mac = get_mac_address(network_interface)
         self._device_topic = f"{self._mac.upper()}$normal"
         self._queue = queue.Queue()
 
