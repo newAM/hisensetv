@@ -90,17 +90,20 @@ class HisenseTv:
     #: Services in the MQTT API.
     _VALID_SERVICES = {"platform_service", "remote_service", "ui_service"}
 
+    _BASE_TOPIC = posixpath.join("/", "remoteapp", "mobile")
+    _BROADCAST_TOPIC = posixpath.join(_BASE_TOPIC, "broadcast", "#")
+
     def __init__(
-        self,
-        hostname: str,
-        *,
-        port: int = 36669,
-        username: str = "hisenseservice",
-        password: str = "multimqttservice",
-        timeout: Union[int, float] = 10.0,
-        enable_client_logger: bool = False,
-        ssl_context: Optional[ssl.SSLContext] = None,
-        network_interface: str = ""
+            self,
+            hostname: str,
+            *,
+            port: int = 36669,
+            username: str = "hisenseservice",
+            password: str = "multimqttservice",
+            timeout: Union[int, float] = 10.0,
+            enable_client_logger: bool = False,
+            ssl_context: Optional[ssl.SSLContext] = None,
+            network_interface: str = ""
     ):
         self.logger = logging.getLogger(__name__)
         self.hostname = hostname
@@ -115,7 +118,8 @@ class HisenseTv:
 
         self._mac = get_mac_address(network_interface)
         self._device_topic = f"{self._mac.upper()}$normal"
-        self._queue = queue.Queue()
+        self._our_topic = posixpath.join(self._BASE_TOPIC, self._device_topic, "#")
+        self._queue = {self._BROADCAST_TOPIC: queue.Queue(), self._our_topic: queue.Queue()}
 
     def __enter__(self):
         self._mqtt_client = mqtt.Client(self.client_id)
@@ -143,10 +147,10 @@ class HisenseTv:
         return self
 
     def __exit__(
-        self,
-        exception_type: Optional[Type[BaseException]],
-        exception_value: Optional[BaseException],
-        traceback: Optional[TracebackType],
+            self,
+            exception_type: Optional[Type[BaseException]],
+            exception_value: Optional[BaseException],
+            traceback: Optional[TracebackType],
     ) -> Optional[bool]:
         self.connected = False
         if isinstance(exception_value, Exception):
@@ -154,26 +158,23 @@ class HisenseTv:
             self._mqtt_client.loop_stop()
 
     def _on_connect(
-        self,
-        client: mqtt.Client,
-        userdata: Optional[Any],
-        flags: Dict[str, int],
-        rc: int,
+            self,
+            client: mqtt.Client,
+            userdata: Optional[Any],
+            flags: Dict[str, int],
+            rc: int,
     ):
         """ Callback upon MQTT broker connection. """
-        base_topic = posixpath.join("/", "remoteapp", "mobile")
-        # broadcast_topic = posixpath.join(base_topic, "broadcast", "#")
-        our_topic = posixpath.join(base_topic, self._device_topic, "#")
-
-        self.logger.debug(f"subcribing to {our_topic}")
-        self._mqtt_client.subscribe(our_topic)
+        self.logger.debug(f"subscribing to {self._our_topic} and {self._BROADCAST_TOPIC}")
+        self._mqtt_client.subscribe(self._our_topic)
+        self._mqtt_client.subscribe(self._BROADCAST_TOPIC)
         self.connected = True
 
     def _on_message(
-        self,
-        client: mqtt.Client,
-        userdata: Optional[Any],
-        msg: mqtt.MQTTMessage,
+            self,
+            client: mqtt.Client,
+            userdata: Optional[Any],
+            msg: mqtt.MQTTMessage,
     ):
         """ Callback upon MQTT broker message on a subcribed topic. """
         if msg.payload:
@@ -195,23 +196,27 @@ class HisenseTv:
         else:
             payload = msg.payload
 
-        self._queue.put_nowait(payload)
+        for queue_key in self._queue:
+            queue_name = queue_key.replace("/#", "")
+            if msg.topic.startswith(queue_name):
+                self._queue[queue_key].put_nowait(payload)
 
-    def _wait_for_response(self) -> Optional[dict]:
+
+    def _wait_for_response(self, topic) -> Optional[dict]:
         """ Waits for the first response from the TV. """
         try:
-            return self._queue.get(block=True, timeout=self.timeout)
+            return self._queue[topic].get(block=True, timeout=self.timeout)
         except queue.Empty as e:
             raise HisenseTvTimeoutError(
                 f"failed to recieve a response in {self.timeout:.3f}s"
             ) from e
 
     def _call_service(
-        self,
-        *,
-        service: str,
-        action: str,
-        payload: Optional[Union[str, dict]] = None,
+            self,
+            *,
+            service: str,
+            action: str,
+            payload: Optional[Union[str, dict]] = None,
     ):
         """
         Calls a service on the TV API.
@@ -505,7 +510,7 @@ class HisenseTv:
         self._change_source("7")
 
     @_check_connected
-    def get_sources(self) -> List[Dict[str, str]]:
+    def get_sources(self) -> Optional[dict]:
         """
         Gets the video sources from the TV.
 
@@ -566,7 +571,7 @@ class HisenseTv:
                 ]
         """
         self._call_service(service="ui_service", action="sourcelist")
-        return self._wait_for_response()
+        return self._wait_for_response(topic=self._our_topic)
 
     @_check_connected
     def set_source(self, sourceid: Union[int, str], sourcename: str):
@@ -597,7 +602,7 @@ class HisenseTv:
                 {"volume_type": 0, "volume_value": 0}
         """
         self._call_service(service="platform_service", action="getvolume")
-        return self._wait_for_response()
+        return self._wait_for_response(topic=self._BROADCAST_TOPIC)
 
     @_check_connected
     def set_volume(self, volume: int):
@@ -625,7 +630,7 @@ class HisenseTv:
     def start_authorization(self):
         """ Starts the authorization flow. """
         self._call_service(service="ui_service", action="gettvstate")
-        self._wait_for_response()
+        self._wait_for_response(topic=self._our_topic)
 
     @_check_connected
     def send_authorization_code(self, code: Union[int, str]):
@@ -643,9 +648,14 @@ class HisenseTv:
             action="authenticationcode",
             payload={"authNum": str(code)},
         )
-        payload = self._wait_for_response()
+        payload = self._wait_for_response(topic=self._our_topic)
         result = int(payload["result"])
         if result != 1:
             raise HisenseTvAuthorizationError(
                 f"authorization failed with code {result}"
             )
+
+    @_check_connected
+    def get_state(self) -> dict:
+        self._call_service(service="ui_service", action="gettvstate")
+        return self._wait_for_response(topic=self._BROADCAST_TOPIC)

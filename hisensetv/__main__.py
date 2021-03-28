@@ -25,7 +25,7 @@ def main():
         "--get",
         action="append",
         default=[],
-        choices=["sources", "volume"],
+        choices=["sources", "volume", "state"],
         help="Gets a value from the TV.",
     )
     parser.add_argument(
@@ -128,7 +128,7 @@ def main():
             output = func()
             if isinstance(output, dict) or isinstance(output, list):
                 output = json.dumps(output, indent=4)
-            logger.info(f"{getter}: {output}")
+            print(output)
 
 
 if __name__ == "__main__":
