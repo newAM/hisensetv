@@ -4,6 +4,7 @@ import argparse
 import json
 import logging
 import ssl
+
 from . import HisenseTv
 
 
@@ -83,6 +84,12 @@ def main():
         action="store_true",
         help="Do not connect with SSL (required for some models).",
     )
+    parser.add_argument("--certfile", help="Absolute path to the .cer file (required for some models). "
+                                           "Works only when --keyfile is also specified. "
+                                           "Will be ignored if --no-ssl is specified.")
+    parser.add_argument("--keyfile", help="Absolute path to the .pkcs8 file (required for some models). "
+                                          "Works only when --certfile is also specified. "
+                                          "Will be ignored if --no-ssl is specified.")
     parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="Logging verbosity."
     )
@@ -105,9 +112,15 @@ def main():
     logger = logging.getLogger(__name__)
 
     if args.no_ssl:
+        logger.info("No SSL context specified.")
         ssl_context = None
+    elif args.certfile is not None and args.keyfile is not None:
+        ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+        ssl_context.load_cert_chain(certfile=args.certfile, keyfile=args.keyfile)
+        logger.info("SSL context created with cert file (" + args.certfile + ") and private key (" + args.keyfile + ")")
     else:
         ssl_context = ssl._create_unverified_context()
+        logger.info("Unverified SSL context created.")
 
     tv = HisenseTv(
         args.hostname, enable_client_logger=args.verbose >= 2, ssl_context=ssl_context, network_interface=args.ifname
