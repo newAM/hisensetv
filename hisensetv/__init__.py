@@ -18,31 +18,31 @@ import uuid
 
 
 class HisenseTvError(Exception):
-    """ Base exception for all exceptions raise by this API. """
+    """Base exception for all exceptions raise by this API."""
 
     pass
 
 
 class HisenseTvNotConnectedError(HisenseTvError):
-    """ Raised when an API function is called without a connection. """
+    """Raised when an API function is called without a connection."""
 
     pass
 
 
 class HisenseTvAuthorizationError(HisenseTvError):
-    """ Raised upon authorization failures. """
+    """Raised upon authorization failures."""
 
     pass
 
 
 class HisenseTvTimeoutError(HisenseTvError):
-    """ Raised upon a failure to receive a response in the timeout period. """
+    """Raised upon a failure to receive a response in the timeout period."""
 
     pass
 
 
 def _check_connected(func: Callable):
-    """ Raises :py:class:`HisenseTvNotConnectedError` if not connected. """
+    """Raises :py:class:`HisenseTvNotConnectedError` if not connected."""
 
     @functools.wraps(func)
     def wrapper(self, *args, **kwargs):
@@ -147,7 +147,7 @@ class HisenseTv:
         flags: Dict[str, int],
         rc: int,
     ):
-        """ Callback upon MQTT broker connection. """
+        """Callback upon MQTT broker connection."""
         base_topic = posixpath.join("/", "remoteapp", "mobile")
         # broadcast_topic = posixpath.join(base_topic, "broadcast", "#")
         our_topic = posixpath.join(base_topic, self._device_topic, "#")
@@ -162,7 +162,7 @@ class HisenseTv:
         userdata: Optional[Any],
         msg: mqtt.MQTTMessage,
     ):
-        """ Callback upon MQTT broker message on a subcribed topic. """
+        """Callback upon MQTT broker message on a subcribed topic."""
         if msg.payload:
             try:
                 payload = msg.payload.decode("utf-8", errors="strict")
@@ -185,7 +185,7 @@ class HisenseTv:
         self._queue.put_nowait(payload)
 
     def _wait_for_response(self) -> Optional[dict]:
-        """ Waits for the first response from the TV. """
+        """Waits for the first response from the TV."""
         try:
             return self._queue.get(block=True, timeout=self.timeout)
         except queue.Empty as e:
@@ -283,212 +283,212 @@ class HisenseTv:
 
     @_check_connected
     def send_key_power(self):
-        """ Sends a keypress of the powerkey to the TV. """
+        """Sends a keypress of the powerkey to the TV."""
         self.send_key("KEY_POWER")
 
     @_check_connected
     def send_key_up(self):
-        """ Sends a keypress of the up key to the TV. """
+        """Sends a keypress of the up key to the TV."""
         self.send_key("KEY_UP")
 
     @_check_connected
     def send_key_down(self):
-        """ Sends a keypress of the down key to the TV. """
+        """Sends a keypress of the down key to the TV."""
         self.send_key("KEY_DOWN")
 
     @_check_connected
     def send_key_left(self):
-        """ Sends a keypress of the left key to the TV. """
+        """Sends a keypress of the left key to the TV."""
         self.send_key("KEY_LEFT")
 
     @_check_connected
     def send_key_right(self):
-        """ Sends a keypress of the right key to the TV. """
+        """Sends a keypress of the right key to the TV."""
         self.send_key("KEY_RIGHT")
 
     @_check_connected
     def send_key_menu(self):
-        """ Sends a keypress of the menu key to the TV. """
+        """Sends a keypress of the menu key to the TV."""
         self.send_key("KEY_MENU")
 
     @_check_connected
     def send_key_back(self):
-        """ Sends a keypress of the back key to the TV. """
+        """Sends a keypress of the back key to the TV."""
         self.send_key("KEY_RETURNS")
 
     @_check_connected
     def send_key_exit(self):
-        """ Sends a keypress of the exit key to the TV. """
+        """Sends a keypress of the exit key to the TV."""
         self.send_key("KEY_EXIT")
 
     @_check_connected
     def send_key_ok(self):
-        """ Sends a keypress of the OK key to the TV. """
+        """Sends a keypress of the OK key to the TV."""
         self.send_key("KEY_OK")
 
     @_check_connected
     def send_key_volume_up(self):
-        """ Sends a keypress of the volume up key to the TV. """
+        """Sends a keypress of the volume up key to the TV."""
         self.send_key("KEY_VOLUMEUP")
 
     @_check_connected
     def send_key_volume_down(self):
-        """ Sends a keypress of the volume down key to the TV. """
+        """Sends a keypress of the volume down key to the TV."""
         self.send_key("KEY_VOLUMEDOWN")
 
     @_check_connected
     def send_key_channel_up(self):
-        """ Sends a keypress of the channel up key to the TV. """
+        """Sends a keypress of the channel up key to the TV."""
         self.send_key("KEY_CHANNELUP")
 
     @_check_connected
     def send_key_channel_down(self):
-        """ Sends a keypress of the channel down key to the TV. """
+        """Sends a keypress of the channel down key to the TV."""
         self.send_key("KEY_CHANNELDOWN")
 
     @_check_connected
     def send_key_fast_forward(self):
-        """ Sends a keypress of the fast forward key to the TV. """
+        """Sends a keypress of the fast forward key to the TV."""
         self.send_key("KEY_FORWARDS")
 
     @_check_connected
     def send_key_rewind(self):
-        """ Sends a keypress of the rewind key to the TV. """
+        """Sends a keypress of the rewind key to the TV."""
         self.send_key("KEY_BACK")
 
     @_check_connected
     def send_key_stop(self):
-        """ Sends a keypress of the stop key to the TV. """
+        """Sends a keypress of the stop key to the TV."""
         self.send_key("KEY_STOP")
 
     @_check_connected
     def send_key_play(self):
-        """ Sends a keypress of the play key to the TV. """
+        """Sends a keypress of the play key to the TV."""
         self.send_key("KEY_PLAY")
 
     @_check_connected
     def send_key_pause(self):
-        """ Sends a keypress of the pause key to the TV. """
+        """Sends a keypress of the pause key to the TV."""
         self.send_key("KEY_PAUSE")
 
     @_check_connected
     def send_key_mute(self):
-        """ Sends a keypress of the mute key to the TV. """
+        """Sends a keypress of the mute key to the TV."""
         self.send_key("KEY_MUTE")
 
     @_check_connected
     def send_key_home(self):
-        """ Sends a keypress of the home key to the TV. """
+        """Sends a keypress of the home key to the TV."""
         self.send_key("KEY_HOME")
 
     @_check_connected
     def send_key_subtitle(self):
-        """ Sends a keypress of the subtitle key to the TV. """
+        """Sends a keypress of the subtitle key to the TV."""
         self.send_key("KEY_SUBTITLE")
 
     @_check_connected
     def send_key_netflix(self):
-        """ Sends a keypress of the Netflix key to the TV. """
+        """Sends a keypress of the Netflix key to the TV."""
         self._launch_app("netflix")
 
     @_check_connected
     def send_key_youtube(self):
-        """ Sends a keypress of the YouTube key to the TV. """
+        """Sends a keypress of the YouTube key to the TV."""
         self._launch_app("youtube")
 
     @_check_connected
     def send_key_amazon(self):
-        """ Sends a keypress of the Amazon key to the TV. """
+        """Sends a keypress of the Amazon key to the TV."""
         self._launch_app("amazon")
 
     @_check_connected
     def send_key_0(self):
-        """ Sends a keypress of the 0 key to the TV. """
+        """Sends a keypress of the 0 key to the TV."""
         self.send_key("KEY_0")
 
     @_check_connected
     def send_key_1(self):
-        """ Sends a keypress of the 1 key to the TV. """
+        """Sends a keypress of the 1 key to the TV."""
         self.send_key("KEY_1")
 
     @_check_connected
     def send_key_2(self):
-        """ Sends a keypress of the 2 key to the TV. """
+        """Sends a keypress of the 2 key to the TV."""
         self.send_key("KEY_2")
 
     @_check_connected
     def send_key_3(self):
-        """ Sends a keypress of the 3 key to the TV. """
+        """Sends a keypress of the 3 key to the TV."""
         self.send_key("KEY_3")
 
     @_check_connected
     def send_key_4(self):
-        """ Sends a keypress of the 4 key to the TV. """
+        """Sends a keypress of the 4 key to the TV."""
         self.send_key("KEY_4")
 
     @_check_connected
     def send_key_5(self):
-        """ Sends a keypress of the 5 key to the TV. """
+        """Sends a keypress of the 5 key to the TV."""
         self.send_key("KEY_5")
 
     @_check_connected
     def send_key_6(self):
-        """ Sends a keypress of the 6 key to the TV. """
+        """Sends a keypress of the 6 key to the TV."""
         self.send_key("KEY_6")
 
     @_check_connected
     def send_key_7(self):
-        """ Sends a keypress of the 7 key to the TV. """
+        """Sends a keypress of the 7 key to the TV."""
         self.send_key("KEY_7")
 
     @_check_connected
     def send_key_8(self):
-        """ Sends a keypress of the 8 key to the TV. """
+        """Sends a keypress of the 8 key to the TV."""
         self.send_key("KEY_8")
 
     @_check_connected
     def send_key_9(self):
-        """ Sends a keypress of the 9 key to the TV. """
+        """Sends a keypress of the 9 key to the TV."""
         self.send_key("KEY_9")
 
     @_check_connected
     def send_key_source_0(self):
-        """ Sets TV to Input 0 """
+        """Sets TV to Input 0"""
         self._change_source("0")
 
     @_check_connected
     def send_key_source_1(self):
-        """ Sets TV to Input 1 """
+        """Sets TV to Input 1"""
         self._change_source("1")
 
     @_check_connected
     def send_key_source_2(self):
-        """ Sets TV to Input 2 """
+        """Sets TV to Input 2"""
         self._change_source("2")
 
     @_check_connected
     def send_key_source_3(self):
-        """ Sets TV to Input 3 """
+        """Sets TV to Input 3"""
         self._change_source("3")
 
     @_check_connected
     def send_key_source_4(self):
-        """ Sets TV to Input 4 """
+        """Sets TV to Input 4"""
         self._change_source("4")
 
     @_check_connected
     def send_key_source_5(self):
-        """ Sets TV to Input 5 """
+        """Sets TV to Input 5"""
         self._change_source("5")
 
     @_check_connected
     def send_key_source_6(self):
-        """ Sets TV to Input 6 """
+        """Sets TV to Input 6"""
         self._change_source("6")
 
     @_check_connected
     def send_key_source_7(self):
-        """ Sets TV to Input 7 """
+        """Sets TV to Input 7"""
         self._change_source("7")
 
     @_check_connected
@@ -610,7 +610,7 @@ class HisenseTv:
 
     @_check_connected
     def start_authorization(self):
-        """ Starts the authorization flow. """
+        """Starts the authorization flow."""
         self._call_service(service="ui_service", action="gettvstate")
         self._wait_for_response()
 
