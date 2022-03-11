@@ -99,7 +99,7 @@ Security
 
 .. |Black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
-.. |Build Status| image:: https://github.com/newAM/hisensetv/workflows/Tests/badge.svg
+.. |Build Status| image:: https://github.com/newAM/hisensetv/workflows/CI/badge.svg
    :target: https://github.com/newAM/hisensetv/actions
 .. |PyPi Version| image:: https://img.shields.io/pypi/v/hisensetv
     :target: https://pypi.org/project/hisensetv/
