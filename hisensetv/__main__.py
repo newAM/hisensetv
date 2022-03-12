@@ -65,7 +65,7 @@ def main():
             "spotify",
             "tunein_radio",
             "plex",
-            "mrmc", 
+            "mrmc",
             "stadia",
             "0",
             "1",
