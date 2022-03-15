@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.3.0] - 2022-03-14
 ### Added
-* Added launch commands for additional applciations.
+* Added launch commands for additional applications.
 
 ### Changed
 * Changed the app launch command to the latest payload.
