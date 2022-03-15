@@ -248,22 +248,276 @@ class HisenseTv:
             app: Name of the app to launch
         """
         if app == "amazon":
-            launch = {"name": "Amazon", "urlType": 37, "storeType": 0, "url": "amazon"}
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Prime Video",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.amazon.amazonvideo.livingroom",
+                "urlType": 0,
+            }
 
         elif app == "netflix":
             launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
                 "name": "Netflix",
-                "urlType": 37,
                 "storeType": 0,
-                "url": "netflix",
+                "type": 0,
+                "url": "com.netflix.ninja",
+                "urlType": 0,
             }
 
         elif app == "youtube":
             launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
                 "name": "YouTube",
-                "urlType": 37,
                 "storeType": 0,
-                "url": "youtube",
+                "type": 0,
+                "url": "com.google.android.youtube.tv",
+                "urlType": 0,
+            }
+
+        elif app == "disneyplus":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Disney+",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.disney.disneyplus",
+                "urlType": 0,
+            }
+
+        elif app == "hulu":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Disney+",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.hulu.livingroomplus",
+                "urlType": 0,
+            }
+
+        elif app == "peacock_tv":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Peacock TV",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.peacocktv.peacockandroid",
+                "urlType": 0,
+            }
+
+        elif app == "tubi":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Tubi",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.tubitv",
+                "urlType": 0,
+            }
+
+        elif app == "pluto_tv":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Pluto TV",
+                "storeType": 0,
+                "type": 0,
+                "url": "tv.pluto.android",
+                "urlType": 0,
+            }
+
+        elif app == "vudu":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "VUDU",
+                "storeType": 0,
+                "type": 0,
+                "url": "air.com.vudu.air.DownloaderTablet",
+                "urlType": 0,
+            }
+
+        elif app == "hbo_max":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "HBO Max",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.hbo.hbonow",
+                "urlType": 0,
+            }
+
+        elif app == "youtube_music":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "YouTube_Music",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.google.android.youtube.tvmusic",
+                "urlType": 0,
+            }
+
+        elif app == "iheartradio":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "iHeartRadio",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.clearchannel.iheartradio.tv",
+                "urlType": 0,
+            }
+
+        elif app == "pandora":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Pandora",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.pandora.android.atv",
+                "urlType": 0,
+            }
+
+        elif app == "tidal":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "TIDAL",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.aspiro.tidal",
+                "urlType": 0,
+            }
+
+        elif app == "spotify":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Spotify",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.spotify.tv.android",
+                "urlType": 0,
+            }
+
+        elif app == "vudu":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "VUDU",
+                "storeType": 0,
+                "type": 0,
+                "url": "air.com.vudu.air.DownloaderTablet",
+                "urlType": 0,
+            }
+
+        elif app == "tunein_radio":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "TuneIn Radio",
+                "storeType": 0,
+                "type": 0,
+                "url": "tunein.player",
+                "urlType": 0,
+            }
+
+        elif app == "plex":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Plex",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.plexapp.android",
+                "urlType": 0,
+            }
+
+        elif app == "mrmc":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "MrMC",
+                "storeType": 0,
+                "type": 0,
+                "url": "tv.mrmc.mrmc",
+                "urlType": 0,
+            }
+
+        elif app == "vudu":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "VUDU",
+                "storeType": 0,
+                "type": 0,
+                "url": "air.com.vudu.air.DownloaderTablet",
+                "urlType": 0,
+            }
+
+        elif app == "stadia":
+            launch = {
+                "appIcon": "",
+                "appId": "",
+                "has_detail_page": 0,
+                "isLocalApp": 1,
+                "name": "Stadia",
+                "storeType": 0,
+                "type": 0,
+                "url": "com.google.stadia.androidtv",
+                "urlType": 0,
             }
 
         else:
@@ -400,6 +654,86 @@ class HisenseTv:
     def send_key_amazon(self):
         """Sends a keypress of the Amazon key to the TV."""
         self._launch_app("amazon")
+
+    @_check_connected
+    def send_key_disneyplus(self):
+        """Sends a keypress of the disneyplus key to the TV."""
+        self._launch_app("disneyplus")
+
+    @_check_connected
+    def send_key_hulu(self):
+        """Sends a keypress of the hulu key to the TV."""
+        self._launch_app("hulu")
+
+    @_check_connected
+    def send_key_peacock_tv(self):
+        """Sends a keypress of the peacock_tv key to the TV."""
+        self._launch_app("peacock_tv")
+
+    @_check_connected
+    def send_key_tubi(self):
+        """Sends a keypress of the tubi key to the TV."""
+        self._launch_app("tubi")
+
+    @_check_connected
+    def send_key_pluto_tv(self):
+        """Sends a keypress of the pluto_tv key to the TV."""
+        self._launch_app("pluto_tv")
+
+    @_check_connected
+    def send_key_vudu(self):
+        """Sends a keypress of the vudu key to the TV."""
+        self._launch_app("vudu")
+
+    @_check_connected
+    def send_key_hbo_max(self):
+        """Sends a keypress of the hbo_max key to the TV."""
+        self._launch_app("hbo_max")
+
+    @_check_connected
+    def send_key_youtube_music(self):
+        """Sends a keypress of the youtube_music key to the TV."""
+        self._launch_app("youtube_music")
+
+    @_check_connected
+    def send_key_iheartradio(self):
+        """Sends a keypress of the iheartradio key to the TV."""
+        self._launch_app("iheartradio")
+
+    @_check_connected
+    def send_key_pandora(self):
+        """Sends a keypress of the pandora key to the TV."""
+        self._launch_app("pandora")
+
+    @_check_connected
+    def send_key_tidal(self):
+        """Sends a keypress of the tidal key to the TV."""
+        self._launch_app("tidal")
+
+    @_check_connected
+    def send_key_spotify(self):
+        """Sends a keypress of the spotify key to the TV."""
+        self._launch_app("spotify")
+
+    @_check_connected
+    def send_key_tunein_radio(self):
+        """Sends a keypress of the tunein_radio key to the TV."""
+        self._launch_app("tunein_radio")
+
+    @_check_connected
+    def send_key_plex(self):
+        """Sends a keypress of the plex key to the TV."""
+        self._launch_app("plex")
+
+    @_check_connected
+    def send_key_mrmc(self):
+        """Sends a keypress of the mrmc key to the TV."""
+        self._launch_app("mrmc")
+
+    @_check_connected
+    def send_key_stadia(self):
+        """Sends a keypress of the stadia key to the TV."""
+        self._launch_app("stadia")
 
     @_check_connected
     def send_key_0(self):
