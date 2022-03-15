@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Changed the app launch command to the latest payload.
-  * This may break app launch for older TV as there was no way to test this.
+  * This may break app launch for older TVs as there was no way to test this.
     Please open an issue if this change broke app launching for you.
 
 ## [0.2.0] - 2020-01-24
