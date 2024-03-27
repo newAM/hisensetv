@@ -1,3 +1,5 @@
+This repository is no longer maintained. Please email me if you are interested in taking ownership.
+
 Python API for Hisense Televisions
 ##################################
 
